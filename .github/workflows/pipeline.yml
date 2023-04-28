@@ -28,11 +28,4 @@ jobs:
           start: npm run start-prod
           wait-on: http://localhost:5000
       - name: Deploy to Render
-        uses: JorgeLNJunior/render-deploy@v1.3.2
-        with:
-          service_id: svr-${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          clear_cache: false
-          wait_deploy: true 
-
-        
+        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}
