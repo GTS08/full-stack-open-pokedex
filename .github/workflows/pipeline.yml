@@ -32,7 +32,6 @@ jobs:
           wait-on: http://localhost:5000
       - name: Deploy to Render
         if: ${{ github.event_name == 'push' }}
-        name: Wait for Render Deployment
         uses: bounceapp/render-action@0.6.0
         with:
           render-token: ${{ secrets.RENDER_TOKEN }}
