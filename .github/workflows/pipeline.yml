@@ -32,7 +32,12 @@ jobs:
           wait-on: http://localhost:5000
       - name: Deploy to Render
         if: ${{ github.event_name == 'push' }}
-        run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}
+        - uses: JorgeLNJunior/render-deploy@v1.3.2
+          with:
+            service_id: ${{ secrets.RENDER_SERVICE_ID }}
+            api_key: ${{ secrets.RENDER_API_KEY }}
+            clear_cache: false
+            wait_deploy: true
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
@@ -42,7 +47,7 @@ jobs:
         fetch-depth: '0'
     - name: Bump version and push tag
       if: ${{ github.event_name == 'push' }}
-      uses: anothrNick/github-tag-action@1.61.0
+      uses: anothrNick/github-tag-action@8c8163ef62cf9c4677c8e800f36270af27930f42
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BUMP: patch
