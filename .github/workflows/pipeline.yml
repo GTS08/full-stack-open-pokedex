@@ -32,12 +32,12 @@ jobs:
           wait-on: http://localhost:5000
       - name: Deploy to Render
         if: ${{ github.event_name == 'push' }}
-        - uses: JorgeLNJunior/render-deploy@v1.3.2
-          with:
-            service_id: ${{ secrets.RENDER_SERVICE_ID }}
-            api_key: ${{ secrets.RENDER_API_KEY }}
-            clear_cache: false
-            wait_deploy: true
+        uses: JorgeLNJunior/render-deploy@v1.3.2
+        with:
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          clear_cache: false
+          wait_deploy: true
   tag_release:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-22.04
